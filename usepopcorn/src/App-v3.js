@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import StarRating from "./StarRating";
+import StarRating from "./StarRating.js";
 import { useMovies } from "./useMovies.js";
 import { useLocalStorageState } from "./useLocalStorageState.js";
 import { useKey } from "./useKey.js";
@@ -122,6 +122,23 @@ function Search({ query, setQuery }) {
     inputEl.current.focus();
     setQuery("");
   });
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (document.activeElement === inputEl.current) return;
+
+        if (e.code === "Enter") {
+          inputEl.current.focus();
+          setQuery("");
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+      return () => document.removeEventListener("keydown", callback);
+    },
+    [setQuery]
+  );
 
   return (
     <input
