@@ -1,0 +1,2 @@
+git config --global core.excludesfile ~/.gitignore_global
+echo "node_modules/" >> ~/.gitignore_global
